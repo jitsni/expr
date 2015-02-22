@@ -30,6 +30,7 @@ public class StateMachine {
 
     
     // Simple example to read data from InputStream using a state machine
+    // START --> OPEN* --> CLOSE|ERROR
     public static void main(String ... args) throws Exception {
         StateMachine machine = new StateMachine();
         machine.process(new ContextImpl(States.START));
@@ -74,14 +75,14 @@ public class StateMachine {
     
     void process(Context<InputStream> context) throws Exception {
         CompletableFuture<Boolean> f = CompletableFuture.completedFuture(true);
-        CompletableFuture<Boolean> g = f.thenCompose(new MyFunction(context));
+        CompletableFuture<Boolean> g = f.thenCompose(new ProgressFunction(context));
         g.join();
     }
     
-    static class MyFunction implements Function<Boolean, CompletionStage<Boolean>> {
+    static class ProgressFunction implements Function<Boolean, CompletionStage<Boolean>> {
         private final Context<InputStream> context;
 
-        MyFunction(Context<InputStream> context) {
+        ProgressFunction(Context<InputStream> context) {
             this.context = context;
         }
         
