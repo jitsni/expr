@@ -9,6 +9,8 @@ import java.util.function.Function;
  * Typical state machine:
  *  
  * State(S) x Event(E) -> Actions (A), State(S')
+ *
+ * @author Jitendra Kotamraju
  */
 public class StateMachine {
     
