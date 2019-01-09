@@ -21,7 +21,7 @@ public class JugPouring {
             List<Node> edges = edges(u, jug1Capacity, jug2Capacity);
 
             if (u.jug1 == target || u.jug2 == target) {
-				// construct the pouring moves
+                // construct the pouring moves
                 List<Node> shortest = new ArrayList<>();
                 while (u != null) {
                     shortest.add(u);
@@ -31,7 +31,7 @@ public class JugPouring {
                 return shortest;
             }
 
-			// BFS 
+            // BFS 
             for (Node v : edges) {
                 if (!visited.contains(v)) {
                     path.put(v, u);
@@ -66,27 +66,27 @@ public class JugPouring {
     static List<Node> edges(Node u, int jug1Capacity, int jug2Capacity) {
         List<Node> edges = new ArrayList<>();
 
-		// empty jug1
+        // empty jug1
         if (u.jug1 != 0) {
             edges.add(new Node(0, u.jug2));
         }
 
-		// empty jug2
+        // empty jug2
         if (u.jug2 != 0) {
             edges.add(new Node(u.jug1, 0));
         }
 
-		// full jug1
+        // full jug1
         if (u.jug1 != jug1Capacity) {
             edges.add(new Node(jug1Capacity, u.jug2));
         }
 
-		// full jug2
+        // full jug2
         if (u.jug2 != jug2Capacity) {
             edges.add(new Node(u.jug1, jug2Capacity));
         }
 
-		// pour from jug1 to jug2
+        // pour from jug1 to jug2
         if (u.jug1 > 0) {
             int remaining = jug2Capacity - u.jug2;
             int fill = Math.min(u.jug1, remaining);
@@ -95,7 +95,7 @@ public class JugPouring {
             }
         }
 
-		// pour from jug2 to jug1
+        // pour from jug2 to jug1
         if (u.jug2 > 0) {
             int remaining = jug1Capacity - u.jug1;
             int fill = Math.min(u.jug2, remaining);
